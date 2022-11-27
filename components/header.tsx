@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FC } from "react";
+import DarkModeToggle from "./darkmode-toggle";
 
 const Header: FC = () => {
   return (
@@ -38,7 +39,7 @@ const Header: FC = () => {
             연락하기
           </a>
         </nav>
-        {/* <DarkModeToggle /> */}
+        <DarkModeToggle />
       </div>
     </header>
   );
