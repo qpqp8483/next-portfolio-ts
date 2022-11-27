@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Layout from "../components/layout";
 import ProjectItem from "../components/projects/projectItem";
@@ -28,37 +28,29 @@ const Projects: NextPage<projects> = ({ projects }) => {
 };
 export default Projects;
 
-export async function getStaticProps() {
-  //if (TOKEN !== undefined && DATABASE_ID !== undefined) {
+export const getStaticProps: GetStaticProps = async () => {
+  console.log(DATABASE_ID);
   const options = {
     method: "POST",
     headers: {
       accept: "application/json",
       "Notion-Version": "2022-02-22",
       "content-type": "application/json",
-      Authorization: `Bearer ${TOKEN}`,
+      Authorization: `Bearer ${TOKEN as string}`,
     },
     body: JSON.stringify({ page_size: 100 }),
   };
 
   const res = await fetch(
-    `https://api.notion.com/v1/databases/${DATABASE_ID}/query`,
+    `https://api.notion.com/v1/databases/${DATABASE_ID as string}/query`,
     options
   );
 
   const projects = await res.json();
-  // }
 
-  // if (projects === true) {
-  // const projectsNames = projects.results.map(
-  //   (aProject) => aProject.properties.Name.title[0].plain_text
-  // );
-  //console.log(`projectsNames : ${projectsNames}`);
-  //console.log(projects);
-  //}
   console.log(projects);
 
   return {
     props: {},
   };
-}
+};
