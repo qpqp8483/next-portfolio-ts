@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FC } from "react";
-import DarkModeToggle from "./darkmode-toggle";
+import DarkModeToggle from "./darkmodeToggle";
 
 const Header: FC = () => {
   return (
