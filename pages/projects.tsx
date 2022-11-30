@@ -1,14 +1,16 @@
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
+import React from "react";
 import Layout from "../components/layout";
+import { ProductItem } from "../components/models/product";
 import ProjectItem from "../components/projects/projectItem";
 import { TOKEN, DATABASE_ID } from "../config";
 
-type projects = {
-  projects: React.ReactNode;
+type Projects = {
+  projects: ProductItem;
 };
 
-const Projects: NextPage<projects> = ({ projects }) => {
+const Projects: NextPage<Projects> = ({ projects }) => {
   console.log(projects);
   return (
     <Layout>
@@ -19,9 +21,15 @@ const Projects: NextPage<projects> = ({ projects }) => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <h1 className="text-4xl font-bold sm:text-6xl">총 프로젝트 :</h1>
+        <h1 className="text-4xl font-bold sm:text-6xl">
+          총 프로젝트 :{projects.results.length}
+        </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 py-10 gap-8 "></div>
+        <div className="grid grid-cols-1 md:grid-cols-2 py-10 gap-8">
+          {projects.results.map((item) => (
+            <ProjectItem data={item} key={item.id} />
+          ))}
+        </div>
       </div>
     </Layout>
   );
@@ -29,7 +37,6 @@ const Projects: NextPage<projects> = ({ projects }) => {
 export default Projects;
 
 export const getStaticProps: GetStaticProps = async () => {
-  console.log(DATABASE_ID);
   const options = {
     method: "POST",
     headers: {
@@ -51,6 +58,6 @@ export const getStaticProps: GetStaticProps = async () => {
   console.log(projects);
 
   return {
-    props: {},
+    props: { projects },
   };
 };
