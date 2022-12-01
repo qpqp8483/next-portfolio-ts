@@ -1,6 +1,12 @@
 import Image from "next/image";
+import { FC } from "react";
+import { ProductItem } from "../models/product";
 
-const ProjectItem = ({ data }) => {
+type ProjectItem = {
+  data: ProductItem;
+};
+
+const ProjectItem: FC<ProjectItem> = ({ data }) => {
   const title = data.properties.Name.title[0].plain_text;
   const githubLink = data.properties.Github.url;
   const description = data.properties.Descriotion.rich_text[0].text.content;
@@ -9,16 +15,16 @@ const ProjectItem = ({ data }) => {
   const startDateString = data.properties.WorkPeriod.date.start;
   const endDateString = data.properties.WorkPeriod.date.end;
 
-  const calculatedPeriod = (start, end) => {
+  const calculatedPeriod = (start: string, end: string) => {
     const startDateStringArray = start.split("-");
     const endDateStringArray = end.split("-");
 
-    var startDate = new Date(
+    let startDate = new Date(
       startDateStringArray[0],
       startDateStringArray[1],
       startDateStringArray[2]
     );
-    var endDate = new Date(
+    let endDate = new Date(
       endDateStringArray[0],
       endDateStringArray[1],
       endDateStringArray[2]
@@ -29,8 +35,6 @@ const ProjectItem = ({ data }) => {
 
     const diffInMs = Math.abs(endDate - startDate);
     const result = diffInMs / (1000 * 60 * 60 * 24);
-
-    console.log(`기간 : ${result}`);
     return result;
   };
 

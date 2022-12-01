@@ -22,7 +22,7 @@ const Projects: NextPage<Projects> = ({ projects }) => {
         </Head>
 
         <h1 className="text-4xl font-bold sm:text-6xl">
-          총 프로젝트 :{projects.results.length}
+          총 프로젝트 : {projects.results.length}
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 py-10 gap-8">

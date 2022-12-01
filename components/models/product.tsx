@@ -1,6 +1,9 @@
 export type ProductItem = {
   archived: boolean;
-  cover: Array<object>;
+  cover: {
+    external: { url: string };
+    file: { url: string };
+  };
   created_by: Array<object>;
   created_time: string;
   icon: null | string;
@@ -9,7 +12,34 @@ export type ProductItem = {
   last_edited_time: string;
   object: string;
   parent: Array<object>;
-  properties: Array<object>;
+  properties: {
+    Name: {
+      title: [
+        {
+          plain_text: string;
+        }
+      ];
+    };
+    Github: {
+      url: string;
+    };
+    Descriotion: {
+      rich_text: [
+        {
+          text: { content: string };
+        }
+      ];
+    };
+    Tags: {
+      multi_select: Array<object>;
+    };
+    WorkPeriod: {
+      date: {
+        start: string;
+        end: string;
+      };
+    };
+  };
   url: string;
   results: Array<object>;
 };
