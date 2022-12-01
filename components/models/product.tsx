@@ -31,7 +31,12 @@ export type ProductItem = {
       ];
     };
     Tags: {
-      multi_select: Array<object>;
+      multi_select: [
+        {
+          id: string;
+          name: string;
+        }
+      ];
     };
     WorkPeriod: {
       date: {

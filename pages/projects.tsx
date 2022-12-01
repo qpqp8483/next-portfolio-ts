@@ -7,11 +7,13 @@ import ProjectItem from "../components/projects/projectItem";
 import { TOKEN, DATABASE_ID } from "../config";
 
 type Projects = {
-  projects: ProductItem;
+  projects: {
+    results: [ProductItem];
+  };
 };
 
 const Projects: NextPage<Projects> = ({ projects }) => {
-  console.log(projects);
+  console.log(projects.results);
   return (
     <Layout>
       <div className="flex flex-col items-center justify-center max-w-6xl min-h-screen px-6 mb-10 mx-auto">

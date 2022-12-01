@@ -15,6 +15,8 @@ const ProjectItem: FC<ProjectItem> = ({ data }) => {
   const startDateString = data.properties.WorkPeriod.date.start;
   const endDateString = data.properties.WorkPeriod.date.end;
 
+  console.log(tags);
+
   // const calculatedPeriod = (start: string, end: string) => {
   //   const startDateStringArray = start.split("-");
   //   const endDateStringArray = end.split("-");
