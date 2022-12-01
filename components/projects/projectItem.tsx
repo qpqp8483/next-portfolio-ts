@@ -15,28 +15,28 @@ const ProjectItem: FC<ProjectItem> = ({ data }) => {
   const startDateString = data.properties.WorkPeriod.date.start;
   const endDateString = data.properties.WorkPeriod.date.end;
 
-  const calculatedPeriod = (start: string, end: string) => {
-    const startDateStringArray = start.split("-");
-    const endDateStringArray = end.split("-");
+  // const calculatedPeriod = (start: string, end: string) => {
+  //   const startDateStringArray = start.split("-");
+  //   const endDateStringArray = end.split("-");
 
-    let startDate = new Date(
-      startDateStringArray[0],
-      startDateStringArray[1],
-      startDateStringArray[2]
-    );
-    let endDate = new Date(
-      endDateStringArray[0],
-      endDateStringArray[1],
-      endDateStringArray[2]
-    );
+  //   let startDate = new Date(
+  //     startDateStringArray[0],
+  //     startDateStringArray[1],
+  //     startDateStringArray[2]
+  //   );
+  //   let endDate = new Date(
+  //     endDateStringArray[0],
+  //     endDateStringArray[1],
+  //     endDateStringArray[2]
+  //   );
 
-    console.log(`startDate: ${startDate}`);
-    console.log(`endDate: ${endDate}`);
+  //   console.log(`startDate: ${startDate}`);
+  //   console.log(`endDate: ${endDate}`);
 
-    const diffInMs = Math.abs(endDate - startDate);
-    const result = diffInMs / (1000 * 60 * 60 * 24);
-    return result;
-  };
+  //   const diffInMs = Math.abs(endDate - startDate);
+  //   const result = diffInMs / (1000 * 60 * 60 * 24);
+  //   return result;
+  // };
 
   return (
     <div className="project-card">
@@ -55,8 +55,8 @@ const ProjectItem: FC<ProjectItem> = ({ data }) => {
         <h3 className="mt-4 text-xl">{description}</h3>
         <a href={githubLink}>깃허브 바로가기</a>
         <h3 className="mt-4 text-xl">
-          작업기간 : {startDateString} ~ {endDateString} (
-          {calculatedPeriod(startDateString, endDateString)}일)
+          작업기간 : {startDateString} ~ {endDateString}
+          {/* ({calculatedPeriod(startDateString, endDateString)}일) */}
         </h3>
 
         <div className="flex items-start mt-2">
