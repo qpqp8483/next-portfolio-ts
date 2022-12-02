@@ -1,16 +1,33 @@
 import { GetStaticProps, NextPage } from "next";
-import { TOKEN, DATABASE_ID } from "../config";
+import { TOKEN, DATABASE_ID, TOKEN_FRONT, DATABASE_ID_FRONT } from "../config";
 import Head from "next/head";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/layout";
-import { ProductItem, ProductItemList } from "../components/models/product";
+import { ProductItem } from "../components/models/product";
 import PubProject from "../components/projects/pubProject";
+import FrontProject from "../components/projects/frontProject";
 
 type Projects = {
-  projects: ProductItem;
+  projects_pub: {
+    results: [ProductItem];
+  };
+  projects_front: {
+    results: [ProductItem];
+  };
 };
 
-const Projects: NextPage<Projects> = ({ projects }) => {
+const Projects: NextPage<Projects> = ({ projects_pub, projects_front }) => {
+  const [tabState, setTabState] = useState("pub");
+
+  const tabClick = (e: React.MouseEvent) => {
+    const eventTarget = e.target as HTMLElement;
+    if (eventTarget.innerText === "Publising") {
+      setTabState("pub");
+    } else {
+      setTabState("front");
+    }
+  };
+
   return (
     <Layout>
       <div className="flex flex-col items-center justify-center max-w-6xl min-h-screen px-6 mb-10 mx-auto">
@@ -23,18 +40,30 @@ const Projects: NextPage<Projects> = ({ projects }) => {
         <section className="text-gray-600 body-font">
           <div className="container px-5 py-10 mx-auto flex flex-wrap flex-col">
             <div className="flex mx-auto flex-wrap mb-5">
-              <a className="text-1xl sm:px-10 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium bg-gray-100 inline-flex items-center leading-none border-indigo-500 text-indigo-500 tracking-wider rounded-t">
+              <button
+                className={`btn-tab ${tabState === `pub` ? `btn-tab-on` : ""}`}
+                onClick={tabClick}
+              >
                 Publising
-              </a>
+              </button>
 
-              <a className="text-1xl sm:px-10 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-200 hover:text-gray-900 tracking-wider">
+              <button
+                className={`btn-tab ${
+                  tabState === `front` ? `btn-tab-on` : ""
+                }`}
+                onClick={tabClick}
+              >
                 Frontend
-              </a>
+              </button>
             </div>
           </div>
         </section>
 
-        <PubProject projects={projects} />
+        {tabState === "pub" ? (
+          <PubProject projects={projects_pub} />
+        ) : (
+          <FrontProject projects={projects_front} />
+        )}
       </div>
     </Layout>
   );
@@ -42,7 +71,8 @@ const Projects: NextPage<Projects> = ({ projects }) => {
 export default Projects;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const options = {
+  // notion_pub api 가져오기 start
+  const options_pub = {
     method: "POST",
     headers: {
       accept: "application/json",
@@ -53,14 +83,34 @@ export const getStaticProps: GetStaticProps = async () => {
     body: JSON.stringify({ page_size: 100 }),
   };
 
-  const res = await fetch(
+  const res_pub = await fetch(
     `https://api.notion.com/v1/databases/${DATABASE_ID as string}/query`,
-    options
+    options_pub
   );
+  // notion_pub api 가져오기 end
 
-  const projects = await res.json();
+  // notion_front api 가져오기 start
+  const options_front = {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "Notion-Version": "2022-06-28",
+      "content-type": "application/json",
+      Authorization: `Bearer ${TOKEN_FRONT as string}`,
+    },
+    body: JSON.stringify({ page_size: 100 }),
+  };
+
+  const res_front = await fetch(
+    `https://api.notion.com/v1/databases/${DATABASE_ID_FRONT as string}/query`,
+    options_front
+  );
+  // notion_front api 가져오기 end
+
+  const projects_pub = await res_pub.json();
+  const projects_front = await res_front.json();
 
   return {
-    props: { projects },
+    props: { projects_pub, projects_front },
   };
 };

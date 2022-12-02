@@ -7,7 +7,7 @@ type Projects = {
   };
 };
 
-const PubProject: FC<Projects> = ({ projects }) => {
+const FrontProject: FC<Projects> = ({ projects }) => {
   return (
     <div>
       <h1 className="text-4xl font-bold">
@@ -23,4 +23,4 @@ const PubProject: FC<Projects> = ({ projects }) => {
   );
 };
 
-export default PubProject;
+export default FrontProject;

@@ -1,2 +1,4 @@
 export const TOKEN = process.env.NEXT_PUBLIC_NOTION_TOKEN;
 export const DATABASE_ID = process.env.NEXT_PUBLIC_NOTION_DATABASE_ID;
+export const TOKEN_FRONT = process.env.NEXT_PUBLIC_NOTION_TOKEN_FRONTEND;
+export const DATABASE_ID_FRONT = process.env.NEXT_PUBLIC_NOTION_DATABASE_ID_FRONTEND;
