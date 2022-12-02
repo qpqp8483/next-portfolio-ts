@@ -15,8 +15,6 @@ const ProjectItem: FC<ProjectItem> = ({ data }) => {
   const startDateString = data.properties.WorkPeriod.date.start;
   const endDateString = data.properties.WorkPeriod.date.end;
 
-  console.log(tags);
-
   // const calculatedPeriod = (start: string, end: string) => {
   //   const startDateStringArray = start.split("-");
   //   const endDateStringArray = end.split("-");
@@ -55,7 +53,7 @@ const ProjectItem: FC<ProjectItem> = ({ data }) => {
       <div className="flex flex-col p-4 ">
         <h1 className="text-2xl font-bold">{title}</h1>
         <h3 className="mt-4 text-xl">{description}</h3>
-        <a href={githubLink}>깃허브 바로가기</a>
+        <a href={githubLink}>작업물 바로가기</a>
         <h3 className="mt-4 text-xl">
           작업기간 : {startDateString} ~ {endDateString}
           {/* ({calculatedPeriod(startDateString, endDateString)}일) */}

@@ -1,19 +1,16 @@
 import { GetStaticProps, NextPage } from "next";
+import { TOKEN, DATABASE_ID } from "../config";
 import Head from "next/head";
 import React from "react";
 import Layout from "../components/layout";
-import { ProductItem } from "../components/models/product";
-import ProjectItem from "../components/projects/projectItem";
-import { TOKEN, DATABASE_ID } from "../config";
+import { ProductItem, ProductItemList } from "../components/models/product";
+import PubProject from "../components/projects/pubProject";
 
 type Projects = {
-  projects: {
-    results: [ProductItem];
-  };
+  projects: ProductItem;
 };
 
 const Projects: NextPage<Projects> = ({ projects }) => {
-  console.log(projects.results);
   return (
     <Layout>
       <div className="flex flex-col items-center justify-center max-w-6xl min-h-screen px-6 mb-10 mx-auto">
@@ -23,15 +20,21 @@ const Projects: NextPage<Projects> = ({ projects }) => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <h1 className="text-4xl font-bold sm:text-6xl">
-          총 프로젝트 : {projects.results.length}
-        </h1>
+        <section className="text-gray-600 body-font">
+          <div className="container px-5 py-10 mx-auto flex flex-wrap flex-col">
+            <div className="flex mx-auto flex-wrap mb-5">
+              <a className="text-1xl sm:px-10 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium bg-gray-100 inline-flex items-center leading-none border-indigo-500 text-indigo-500 tracking-wider rounded-t">
+                Publising
+              </a>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 py-10 gap-8">
-          {projects.results.map((item) => (
-            <ProjectItem data={item} key={item.id} />
-          ))}
-        </div>
+              <a className="text-1xl sm:px-10 py-3 w-1/2 sm:w-auto justify-center sm:justify-start border-b-2 title-font font-medium inline-flex items-center leading-none border-gray-200 hover:text-gray-900 tracking-wider">
+                Frontend
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <PubProject projects={projects} />
       </div>
     </Layout>
   );
@@ -56,8 +59,6 @@ export const getStaticProps: GetStaticProps = async () => {
   );
 
   const projects = await res.json();
-
-  console.log(projects);
 
   return {
     props: { projects },
