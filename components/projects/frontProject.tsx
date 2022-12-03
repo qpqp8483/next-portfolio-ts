@@ -3,7 +3,7 @@ import { ProductItem } from "../models/product";
 import ProjectItem from "./projectItem";
 type Projects = {
   projects: {
-    results: [ProductItem];
+    results: ProductItem[];
   };
 };
 
