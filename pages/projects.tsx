@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import { TOKEN, DATABASE_ID, TOKEN_FRONT, DATABASE_ID_FRONT } from "../config";
 import Head from "next/head";
 import React, { useState } from "react";
@@ -70,7 +70,7 @@ const Projects: NextPage<Projects> = ({ projects_pub, projects_front }) => {
 };
 export default Projects;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const option = (notion: string, token: string) => {
     return {
       method: "POST",
@@ -99,5 +99,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   return {
     props: { projects_pub, projects_front },
+    revalidate: 1,
   };
 };
