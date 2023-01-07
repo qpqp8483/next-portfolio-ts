@@ -99,6 +99,5 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   return {
     props: { projects_pub, projects_front },
-    revalidate: 1,
   };
 };
